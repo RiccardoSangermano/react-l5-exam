@@ -1,6 +1,8 @@
 import { Component } from "react"
-  const API="http://www.omdbapi.com/?apikey=b3987125&s=Star Wars"
-class Lord  extends Component{
+import { Container, Row, Col } from 'react-bootstrap'
+
+  const API="http://www.omdbapi.com/?apikey=b3987125&s=Alien"
+class Alien  extends Component{
 state ={
     coverFilm: []
 }
@@ -29,28 +31,33 @@ return resp.json()
         this.listFilm()
     }
     render() {
+        const alienSaga = this.state.coverFilm.filter((movie) => {
+            return movie.Title?.toLowerCase().includes('alien') || movie.Titolo?.toLowerCase().includes('alien');
+          })
+          const firstSixAlienSaga = alienSaga.slice(0, 6)
         return(
-            <div >
-       
-          <div>
             
-            {this.state.coverFilm.map((movie) => (
+       <Container fluid>
+          <Row>
+          <h2 className="text-center mt-4 mb-4">Alien</h2>
+            {firstSixAlienSaga .map((movie) => (
+                 <Col xs={12} md={6} lg={2} className="d-flex justify-content-center">
                 <img
                   key={movie.imdbID}
                   src={movie.Poster}
                   alt={movie.Title}
                   style={{ width: '200px', height: 'auto', margin: '10px' }}
                 />
+</Col>
               ))}
-
            
           
-           
-          </div>
-        
-      </div>
+</Row>      
+         
+</Container>
+      
         )
     }
 
 }
-export default Lord
+export default Alien
